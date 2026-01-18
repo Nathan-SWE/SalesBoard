@@ -1,33 +1,83 @@
-Sistema interno para cadastro, visualização e análise de produtos e vendas, com um painel visual simples e eficiente para auxiliar na tomada de decisões.
+# 📊 SalesBoard
 
-O objetivo é criar uma base sólida para visualização de dados de vendas e permitir a inserção de produtos manualmente ou via arquivos CSV, com filtros e edição.
+> **Retail Intelligence Simplified.**
+> Um sistema Fullstack para gestão de catálogo, análise de vendas e inteligência de dados para o varejo.
 
-back-end | render.com
-front-end | vercel
-DB | neon.com
+O **SalesBoard** é uma solução projetada para modernizar a operação comercial, permitindo a ingestão de dados legados (CSV), visualização de métricas de performance e gerenciamento de inventário em tempo real.
 
-FastAPI e Pandas
+---
 
-Interface Requirements:
-• An interface to insert products based on the provided CSV.
-• All the data should be in a database of your choice.
-• A small and simple dashboard showing charts for sales, including profi t by total_price variation, over a year.
+## 🚀 Funcionalidades Atuais
 
-For backend: (render.com)
-Note: this needs to be in Python; the framework is up to you.
-• [ ] A POST endpoint for inserting new products;
-• [ ] A GET endpoint for listing products, sales, including profi t.
-• [ ] A GET endpoint for listing categories.
-• [ ] A POST endpoint for inserting products from a CSV fi le
+- **API de Alta Performance:** Backend construído com **FastAPI** para respostas rápidas.
+- **Ingestão de Dados:** Leitura automatizada de arquivos corporativos (`products.csv`, `sales.csv`, `categories.csv`) utilizando **Pandas**.
+- **Data Persistence Strategy:** Arquitetura flexível preparada para bancos SQL ou processamento em memória.
+- **Documentação Automática:** Interface Swagger UI interativa para testes de endpoints.
 
-For frontend: (vercel)
-Note: Framework needs to be a React or a React variant, for example (Vite, Nextjs, Quik), the libraries are up to you, but make sure you are using Tailwind CSS for styling (shadcn/radix) or Ant Design as a component library.
-• [ ] Dashboard with a minimum of two charts, with sales representing quantity and sales profi t.
-You can use bar charts or line charts, it’s up to you.
-• [ ] A form for product registration
-• [ ] The possibility to upload a CSV fi le and insert new products from it
-• [ ] Filters by product category
-Extras:
-• [ ] Allow the user to edit the values, like the number of sales and prices, for each month of the year.
-• [ ] Insertion of new categories.
-• [ ] The possibility to download a CSV from the database products/sales.
+---
+
+## 🛠️ Tech Stack
+
+- **Backend:** Python 3.10+, FastAPI, Uvicorn, Pandas.
+- **Frontend:** React, TailwindCSS, Vite (Em desenvolvimento).
+- **Database:** In-Memory (Protótipo) / PostgreSQL (Produção).
+
+---
+
+## ⚙️ Guia de Instalação e Execução
+
+Siga os passos abaixo para rodar o servidor de desenvolvimento localmente.
+
+### Pré-requisitos
+
+- Python 3.12 ou superior instalado.
+- Git instalado.
+
+### 1. Clonar o Repositório
+
+```bash
+git clone https://github.com/Nathan-SWE/SalesBoard.git
+cd SalesBoard
+```
+
+### 2. Configurar o Backend
+
+Acesse o diretório do servidor e crie um ambiente virtual para isolar as dependências.
+
+```bash
+cd backend
+python -m venv venv
+```
+
+### 3. Instalar Dependências
+
+Com o ambiente ativado, instale as bibliotecas necessárias:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Executar o Servidor
+
+Inicie a API em modo de desenvolvimento (com hot-reload):
+
+```Bash
+uvicorn main:app --reload
+O terminal deverá exibir: INFO: Uvicorn running on http://127.0.0.1:8000
+```
+
+## 📡 Testando a API (Documentação Interativa)
+
+O projeto conta com documentação automática via Swagger UI.
+
+1. Com o servidor rodando, acesse no seu navegador: http://127.0.0.1:8000/docs
+
+2. Você verá a lista de Endpoints disponíveis:
+
+- `GET /products:` Retorna todo o catálogo de produtos importado.
+
+- `GET /categories:` Lista as categorias disponíveis.
+
+- `GET /sales:` Exibe o histórico de vendas brutas.
+
+3. Para testar, clique na seta do endpoint, depois em "Try it out" e "Execute".
