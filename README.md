@@ -6,6 +6,8 @@ back-end | render.com
 front-end | vercel
 DB | neon.com
 
+FastAPI e Pandas
+
 Interface Requirements:
 • An interface to insert products based on the provided CSV.
 • All the data should be in a database of your choice.
