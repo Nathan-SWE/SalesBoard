@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List, Dict, Any
 import pandas as pd
 import os
 
@@ -21,8 +22,6 @@ def load_initial_Data():
   global db_products, db_categories, db_sales
 
   base_path = "data"
-
-  print("--- INICIANDO CARREGAMENTO DE DADOS ---")
 
   try:
     p_path = os.path.join(base_path, "products.csv")
@@ -63,3 +62,28 @@ def get_categories():
 def get_sales():
   return db_sales
 
+@app.get("/dashboard/metrics")
+def get_dashboard_metrics():
+  if not db_sales:
+    return {"message": "Sem dados de vendas"}
+
+  df = pd.DataFrame(db_sales)
+
+  df['date'] = pd.to_datetime(df['date'])
+  df['month_name'] = df['date'].dt.month_name()
+  df['month_num'] = df['date'].dt.month
+
+  df['profit'] = df['total_price'] * 0.20
+
+  monthly_group = df.groupby(['month_num', 'month_name'])[['total_price', 'profit', 'quantity']].sum().reset_index()
+
+  monthly_group = monthly_group.sort_values('month_num')
+
+  return {
+    "summary": {
+      "total_revenue": df['total_price'].sum(),
+      "total_profit": df['profit'].sum(),
+      "total_items_sold": int(df['quantity'].sum())
+    },
+    "charts": monthly_group.to_dict(orient="records")
+  }

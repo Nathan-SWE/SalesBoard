@@ -13,7 +13,7 @@ Este documento rastreia o progresso do desenvolvimento do MVP.
 
 ## Fase 2: Lógica de Negócio & Manipulação de Dados
 
-- [ ] **Crucial:** Implementar lógica de cálculo de "Lucro" (Profit)
+- [✅] **Crucial:** Implementar lógica de cálculo de "Lucro" (Profit)
   - _Obs: Cruzar dados de Sales (venda) com Products (custo/preço)._
 - [ ] Endpoint POST /upload/csv: Permitir upload real de arquivos para atualizar a base
 - [ ] Endpoint POST /products: Inserção manual de um produto
