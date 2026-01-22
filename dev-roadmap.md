@@ -21,7 +21,7 @@ Este documento rastreia o progresso do desenvolvimento do MVP.
 
 ## Fase 3: Front-end (React + Tailwind)
 
-- [ ] Setup do Vite + React + Tailwind CSS
+- [✅] Setup do Next + Typescript + Tailwind CSS
 - [ ] Componente: Sidebar/Layout Navegável
 - [ ] **Feature Principal:** Dashboard de Vendas
   - [ ] Gráfico 1: Vendas por Mês (Quantidade)

@@ -1,11 +1,16 @@
+# Backend
 backend/venv/
 backend/__pycache__/
 *.pyc
 
+# Frontend
 frontend/node_modules/
+frontend/.next/
 frontend/dist/
 frontend/.env
+frontend/.env.local
+frontend/build/
 
+# Geral
 .DS_Store
-
 *.pdf
