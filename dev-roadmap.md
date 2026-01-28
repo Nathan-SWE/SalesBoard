@@ -15,25 +15,25 @@ Este documento rastreia o progresso do desenvolvimento do MVP.
 
 - [✅] **Crucial:** Implementar lógica de cálculo de "Lucro" (Profit)
   - _Obs: Cruzar dados de Sales (venda) com Products (custo/preço)._
-- [ ] Endpoint POST /upload/csv: Permitir upload real de arquivos para atualizar a base
-- [ ] Endpoint POST /products: Inserção manual de um produto
+- [✅] Endpoint POST /upload/csv: Permitir upload real de arquivos para atualizar a base
+- [✅] Endpoint POST /products: Inserção manual de um produto
 - [ ] Refatoração: Organizar o código em `controllers` ou `routers` (Sair do main.py gigante)
 
 ## Fase 3: Front-end (React + Tailwind)
 
 - [✅] Setup do Next + Typescript + Tailwind CSS
-- [ ] Componente: Sidebar/Layout Navegável
-- [ ] **Feature Principal:** Dashboard de Vendas
-  - [ ] Gráfico 1: Vendas por Mês (Quantidade)
-  - [ ] Gráfico 2: Lucro por Mês (R$)
-- [ ] Página: Listagem de Produtos (Tabela com dados da API)
-- [ ] Feature: Formulário de Upload de CSV (Integrado com o endpoint da Fase 2)
+- [✅] Componente: Sidebar/Layout Navegável
+- [✅] **Feature Principal:** Dashboard de Vendas
+  - [✅] Gráfico 1: Vendas por Mês (Quantidade)
+  - [✅] Gráfico 2: Lucro por Mês (R$)
+- [✅] Página: Listagem de Produtos (Tabela com dados da API)
+- [✅] Feature: Formulário de Upload de CSV (Integrado com o endpoint da Fase 2)
 
 ## Fase 4: Extras & Refinamentos
 
-- [ ] Filtros por Categoria no Dashboard
+- [✅] Filtros por Categoria no Dashboard
 - [ ] Edição de Valores (Vendas/Preços)
-- [ ] Inserção de Novas Categorias
+- [✅] Inserção de Novas Categorias (via endpoint POST /categories)
 - [ ] Botão de Download CSV (Exportar dados)
 
 ## Fase 5: Deploy & Documentação (Entrega)

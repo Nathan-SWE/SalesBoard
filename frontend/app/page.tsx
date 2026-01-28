@@ -1,18 +1,99 @@
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-slate-50">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4">
-          SalesBoard &nbsp;
-          <code className="font-mono font-bold">v1.0</code>
+'use client'
+
+import { useEffect, useState } from 'react'
+import { getDashboardMetrics, getCategories } from '@/lib/api'
+import type { DashboardMetrics, Category } from '@/types'
+import { StatsCards } from '@/components/dashboard/stats-cards'
+import { SalesChart } from '@/components/dashboard/sales-chart'
+import { ProfitChart } from '@/components/dashboard/profit-chart'
+import { CategoryFilter } from '@/components/dashboard/category-filter'
+import { Loader2 } from 'lucide-react'
+
+export default function DashboardPage() {
+  const [metrics, setMetrics] = useState<DashboardMetrics | null>(null)
+  const [categories, setCategories] = useState<Category[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function fetchInitialData() {
+      try {
+        const [metricsData, categoriesData] = await Promise.all([
+          getDashboardMetrics(),
+          getCategories()
+        ])
+        setMetrics(metricsData)
+        setCategories(categoriesData)
+      } catch (err) {
+        setError('Erro ao carregar dados. Verifique se o backend esta rodando.')
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchInitialData()
+  }, [])
+
+  useEffect(() => {
+    if (!loading && !error) {
+      async function fetchFilteredMetrics() {
+        try {
+          const data = await getDashboardMetrics(selectedCategory)
+          setMetrics(data)
+        } catch (err) {
+          console.error(err)
+        }
+      }
+      fetchFilteredMetrics()
+    }
+  }, [selectedCategory, loading, error])
+
+  if (loading) {
+    return (
+      <div className="flex h-[60vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-[60vh] flex-col items-center justify-center gap-4">
+        <p className="text-lg text-red-500">{error}</p>
+        <p className="text-sm text-slate-500">
+          Certifique-se de que o servidor FastAPI esta rodando em http://localhost:8000
         </p>
       </div>
+    )
+  }
 
-      <div className="relative flex place-items-center my-16">
-        <h1 className="text-5xl font-bold tracking-tight text-slate-900 sm:text-7xl">
-          Sales<span className="text-blue-600">Board</span>
-        </h1>
+  if (!metrics) {
+    return (
+      <div className="flex h-[60vh] items-center justify-center">
+        <p className="text-slate-500">Nenhum dado disponivel</p>
       </div>
-    </main>
-  );
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-6">
+      <CategoryFilter
+        categories={categories}
+        selectedCategory={selectedCategory}
+        onCategoryChange={setSelectedCategory}
+      />
+      
+      <StatsCards
+        totalRevenue={metrics.summary.total_revenue}
+        totalProfit={metrics.summary.total_profit}
+        totalItemsSold={metrics.summary.total_items_sold}
+      />
+      
+      <div className="grid gap-6 lg:grid-cols-2">
+        <SalesChart data={metrics.charts} />
+        <ProfitChart data={metrics.charts} />
+      </div>
+    </div>
+  )
 }

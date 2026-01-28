@@ -7,6 +7,11 @@ export interface Product {
   brand: string;
 }
 
+export interface Category {
+  id: number;
+  name: string;
+}
+
 export interface Sale {
   id: number;
   product_id: number;
